@@ -34,7 +34,7 @@ print("\n\n Planets with mass <= 1:")
 print(df_mass)
 
 # 4. Return all the columns for planets that have at least one moon and a mass less than 1.00.
-df_mass_moon = pd.read_sql(""" SELECT * FROM planets WHERE num_moons >= 1 AND mass < 1.00 """, conn1)
+df_mass_moon = pd.read_sql(""" SELECT * FROM planets WHERE num_of_moons >= 1 AND mass < 1.00 """, conn1)
 print("\n\n Planets with atleast 1 moon and mass <= 1:")
 print(df_mass_moon)
 
@@ -62,7 +62,8 @@ print("\n\n--- Hungry dogs between 2-7 alphabetically ---")
 print(df_hungry_ages)
 
 # 8. Return the name, age, and breed for the 4 oldest dogs. Sort the result alphabetically based on the breed
-df_4_oldest = pd.read_sql(""" SELECT name, age, breed FROM dogs ORDER BY age DESC LIMIT 4""", conn2)
+df_4_oldest = pd.read_sql("""
+    SELECT name, age, breed FROM (SELECT * FROM dogs ORDER BY age DESC LIMIT 4) ORDER BY breed ASC""", conn2)
 print("\n\n--- Name, age, and breed of 4 oldest dogs---")
 print(df_4_oldest)
 
@@ -91,7 +92,7 @@ print("\n\n--- Total number of years played on each team ---")
 print(df_teams_years)
 
 # 12. For each team that Babe Ruth played on and averaged over 200 at-bats with, return the team name and average number of at-bats, aliased as average_at_bats.
-df_at_bats = pd.read_sql(""" SELECT team, AVG(AB) AS average_at_bats FROM babe_ruth_stats GROUP BY team HAVING AVG(AB) > 200""", conn3)
+df_at_bats = pd.read_sql(""" SELECT team, AVG(at_bats) AS average_at_bats FROM babe_ruth_stats GROUP BY team HAVING AVG(at_bats) > 200 """, conn3)
 print("\n\n--- For each team average of over 200 at bats ---")
 print(df_at_bats)
 
