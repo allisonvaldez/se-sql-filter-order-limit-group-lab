@@ -62,8 +62,7 @@ print("\n\n--- Hungry dogs between 2-7 alphabetically ---")
 print(df_hungry_ages)
 
 # 8. Return the name, age, and breed for the 4 oldest dogs. Sort the result alphabetically based on the breed
-df_4_oldest = pd.read_sql("""
-    SELECT name, age, breed FROM (SELECT * FROM dogs ORDER BY age DESC LIMIT 4) ORDER BY breed ASC""", conn2)
+df_4_oldest = pd.read_sql(""" SELECT name, age, breed FROM dogs ORDER BY age DESC LIMIT 4 """, conn2)
 print("\n\n--- Name, age, and breed of 4 oldest dogs---")
 print(df_4_oldest)
 
